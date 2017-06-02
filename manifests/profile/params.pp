@@ -212,6 +212,7 @@ class ceph::profile::params (
   $mon_keyring = undef,
   $client_keys = {},
   $osds = undef,
+  $pools = undef,
   $manage_repo = true,
   $rgw_name = undef,
   $rgw_user = undef,

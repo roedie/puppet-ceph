@@ -54,6 +54,8 @@ define ceph::pool (
   $exec_timeout = $::ceph::params::exec_timeout,
 ) {
 
+  include ::ceph::params
+
   if $ensure == present {
 
     Ceph_config<||> -> Exec["create-${name}"]
