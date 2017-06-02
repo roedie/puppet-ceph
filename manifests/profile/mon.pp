@@ -42,4 +42,7 @@ class ceph::profile::mon {
       defaults => $defaults
     }
   }
+  class { '::ceph::pools':
+    args     => $ceph::profile::params::pools,
+  }
 }
