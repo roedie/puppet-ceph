@@ -35,6 +35,10 @@
 #   Optional. Absolute path to the keyring file, including the file name.
 #   Defaults to /etc/ceph/ceph.${name}.keyring.
 #
+# [*cap_mgr*] cephx capabilities for MGR access.
+#   Optional. e.g. 'allow *'
+#   Defaults to 'undef'.
+#
 # [*cap_mon*] cephx capabilities for MON access.
 #   Optional. e.g. 'allow *'
 #   Defaults to 'undef'.
@@ -74,6 +78,7 @@ define ceph::key (
   $secret,
   $cluster = undef,
   $keyring_path = "/etc/ceph/ceph.${name}.keyring",
+  $cap_mgr = undef,
   $cap_mon = undef,
   $cap_osd = undef,
   $cap_mds = undef,
@@ -92,6 +97,11 @@ define ceph::key (
     $cluster_option = ''
   }
 
+  if $cap_mgr {
+    $mgr_caps = "--cap mgr '${cap_mgr}' "
+  } else {
+    $mgr_caps = ''
+  }
   if $cap_mon {
     $mon_caps = "--cap mon '${cap_mon}' "
   } else {
@@ -108,7 +118,7 @@ define ceph::key (
     $mds_caps = ''
   }
 
-  $caps = "${mon_caps}${osd_caps}${mds_caps}"
+  $caps = "${mgr_caps}${mon_caps}${osd_caps}${mds_caps}"
 
   # this allows multiple defines for the same 'keyring file',
   # which is supported by ceph-authtool

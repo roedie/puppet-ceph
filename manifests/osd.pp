@@ -51,11 +51,11 @@
 define ceph::osd (
   $ensure = present,
   $journal = "''",
+  $filesystem = undef,
   $cluster = undef,
   $exec_timeout = $::ceph::params::exec_timeout,
   $selinux_file_context = 'ceph_var_lib_t',
   $fsid = $::ceph::profile::params::fsid,
-  $filesystem = undef,
   ) {
 
     include ::ceph::params

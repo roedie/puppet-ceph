@@ -42,7 +42,7 @@
 
 class ceph::params (
   $exec_timeout    = 600,
-  $packages        = ['ceph'], # just provide the minimum per default
+  $packages        = ['ceph', 'python-cherrypy'], # just provide the minimum per default
   $rgw_socket_path = '/tmp/radosgw.sock',
   $enable_sig      = false,
   $release         = 'jewel',

@@ -94,6 +94,9 @@
 # [*mds_key*] The mds secret key.
 #   Optional but required when using cephx.
 #
+# [*mgr_key*] The mgr secret key.
+#   Optional. 
+#
 # [*mon_key*] The mon secret key.
 #   Optional. Either mon_key or mon_keyring need to be set when using cephx.
 #
@@ -208,6 +211,7 @@ class ceph::profile::params (
   $public_network = undef,
   $public_addr = undef,
   $mds_key = undef,
+  $mgr_key = undef,
   $mon_key = undef,
   $mon_keyring = undef,
   $client_keys = {},

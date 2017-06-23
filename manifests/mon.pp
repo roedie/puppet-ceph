@@ -63,6 +63,7 @@ define ceph::mon (
   $public_addr = undef,
   $cluster = undef,
   $authentication_type = 'cephx',
+  $mgrkey = undef,
   $key = undef,
   $keyring  = undef,
   $exec_timeout = $::ceph::params::exec_timeout,
@@ -142,6 +143,50 @@ test -e \$mon_data/done
 
         } else {
           $keyring_path = $keyring
+        }
+
+        if $mgrkey {
+          $mgrkeyring_path      = "/var/lib/ceph/mgr/${cluster_name}-${id}"
+          $mgradminkeyring_path = "/var/lib/ceph/mgr/${cluster_name}-admin"
+
+	  exec { "create-mgrkeyring_path-${id}":
+            command => "/bin/mkdir -p ${mgrkeyring_path}",
+            unless  => "/usr/bin/test -d ${mgrkeyring_path}",
+          }
+	  exec { "create-mgradminkeyring_path-${id}":
+            command => "/bin/mkdir -p ${mgradminkeyring_path}",
+            unless  => "/usr/bin/test -d ${mgradminkeyring_path}",
+          }
+
+          Ceph_config<||> ->
+          exec { "create-mgr-keyring-${id}":
+            command => "/bin/true # comment to satisfy puppet syntax requirements
+set -ex
+cat > ${mgrkeyring_path}/keyring << EOF
+[mgr.${id}]
+    key = ${mgrkey}
+EOF
+
+chmod 0444 ${mgrkeyring_path}/keyring
+",
+           unless => "/usr/bin/test -f ${mgrkeyring_path}/keyring",
+          }
+          Ceph_config<||> ->
+          exec { "create-mgr-admin-keyring-${id}":
+            command => "/bin/true # comment to satisfy puppet syntax requirements
+set -ex
+cat > ${mgradminkeyring_path}/keyring << EOF
+[mgr.${id}]
+    key = ${mgrkey}
+EOF
+
+chmod 0444 ${mgradminkeyring_path}/keyring
+",
+            unless => "/usr/bin/test -f ${mgradminkeyring_path}/keyring",
+          }
+
+          Exec["create-mgrkeyring_path-${id}"] -> Exec["create-mgradminkeyring_path-${id}"] -> Exec["create-mgr-keyring-${id}"] -> Exec["create-mgr-admin-keyring-${id}"] -> Exec[$ceph_mkfs]
+
         }
 
       } else {
