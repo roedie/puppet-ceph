@@ -43,6 +43,7 @@ class ceph::profile::mon {
       defaults => $defaults
     }
   }
+  ceph::mgr { $::hostname: }
   class { '::ceph::pools':
     args     => $ceph::profile::params::pools,
   }
