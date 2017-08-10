@@ -193,30 +193,30 @@ this module to assign values and will be removed in a future release.')
     Package<| tag == 'ceph' |> -> Ceph_config<| |>
     # [global]
     ceph_config {
-      'global/fsid':                         value => $fsid;
-      'global/keyring':                      value => $keyring;
-      'global/osd_pool_default_pg_num':      value => $osd_pool_default_pg_num;
-      'global/osd_pool_default_pgp_num':     value => $osd_pool_default_pgp_num;
-      'global/osd_pool_default_size':        value => $osd_pool_default_size;
-      'global/osd_pool_default_min_size':    value => $osd_pool_default_min_size;
-      'global/osd_pool_default_crush_rule':  value => $osd_pool_default_crush_rule;
-      'global/osd_crush_update_on_start':    value => $osd_crush_update_on_start;
-      'global/mon_osd_full_ratio':           value => $mon_osd_full_ratio;
-      'global/mon_osd_nearfull_ratio':       value => $mon_osd_nearfull_ratio;
-      'global/mon_initial_members':          value => $mon_initial_members;
-      'global/mon_host':                     value => $mon_host;
-      'global/ms_bind_ipv6':                 value => $ms_bind_ipv6;
-      'global/require_signatures':           value => $require_signatures;
-      'global/cluster_require_signatures':   value => $cluster_require_signatures;
-      'global/service_require_signatures':   value => $service_require_signatures;
-      'global/sign_messages':                value => $sign_messages;
-      'global/cluster_network':              value => $cluster_network;
-      'global/public_network':               value => $public_network;
-      'global/public_addr':                  value => $public_addr;
-      'osd/osd_journal_size':                value => $osd_journal_size;
-      'client/rbd_default_features':         value => $rbd_default_features;
-      'bluestore_compression_mode':          value => $bluestore_compression_mode;
-      'bluestore_compression_algorithm':     value => $bluestore_compression_algorithm;
+      'global/fsid':                            value => $fsid;
+      'global/keyring':                         value => $keyring;
+      'global/osd_pool_default_pg_num':         value => $osd_pool_default_pg_num;
+      'global/osd_pool_default_pgp_num':        value => $osd_pool_default_pgp_num;
+      'global/osd_pool_default_size':           value => $osd_pool_default_size;
+      'global/osd_pool_default_min_size':       value => $osd_pool_default_min_size;
+      'global/osd_pool_default_crush_rule':     value => $osd_pool_default_crush_rule;
+      'global/osd_crush_update_on_start':       value => $osd_crush_update_on_start;
+      'global/mon_osd_full_ratio':              value => $mon_osd_full_ratio;
+      'global/mon_osd_nearfull_ratio':          value => $mon_osd_nearfull_ratio;
+      'global/mon_initial_members':             value => $mon_initial_members;
+      'global/mon_host':                        value => $mon_host;
+      'global/ms_bind_ipv6':                    value => $ms_bind_ipv6;
+      'global/require_signatures':              value => $require_signatures;
+      'global/cluster_require_signatures':      value => $cluster_require_signatures;
+      'global/service_require_signatures':      value => $service_require_signatures;
+      'global/sign_messages':                   value => $sign_messages;
+      'global/cluster_network':                 value => $cluster_network;
+      'global/public_network':                  value => $public_network;
+      'global/public_addr':                     value => $public_addr;
+      'global/bluestore_compression_mode':      value => $bluestore_compression_mode;
+      'global/bluestore_compression_algorithm': value => $bluestore_compression_algorithm;
+      'osd/osd_journal_size':                   value => $osd_journal_size;
+      'client/rbd_default_features':            value => $rbd_default_features;
     }
 
 
