@@ -240,6 +240,8 @@ class ceph::profile::params (
   $fs_data_pool = undef,
   $fs_name = undef,
   $rbd_default_features = undef,
+  $bluestore_compression_mode = undef,
+  $bluestore_compression_algorithm = indef,
 ) {
   validate_hash($client_keys)
 

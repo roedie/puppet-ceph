@@ -140,39 +140,41 @@
 
 class ceph (
   $fsid,
-  $ensure                        = present,
-  $authentication_type           = 'cephx',
-  $keyring                       = undef,
-  $osd_journal_size              = undef,
-  $osd_max_object_name_len       = undef,
-  $osd_max_object_namespace_len  = undef,
-  $osd_pool_default_pg_num       = undef,
-  $osd_pool_default_pgp_num      = undef,
-  $osd_pool_default_size         = undef,
-  $osd_pool_default_min_size     = undef,
-  $osd_pool_default_crush_rule   = undef,
-  $osd_crush_update_on_start     = undef,
-  $mon_osd_full_ratio            = undef,
-  $mon_osd_nearfull_ratio        = undef,
-  $mon_initial_members           = undef,
-  $mon_host                      = undef,
-  $ms_bind_ipv6                  = undef,
-  $require_signatures            = undef,
-  $cluster_require_signatures    = undef,
-  $service_require_signatures    = undef,
-  $sign_messages                 = undef,
-  $cluster_network               = undef,
-  $public_network                = undef,
-  $public_addr                   = undef,
-  $osd_max_backfills             = undef,
-  $osd_recovery_max_active       = undef,
-  $osd_recovery_op_priority      = undef,
-  $osd_recovery_max_single_start = undef,
-  $osd_max_scrubs                = undef,
-  $osd_op_threads                = undef,
-  $rbd_default_features          = undef,
+  $ensure                          = present,
+  $authentication_type             = 'cephx',
+  $keyring                         = undef,
+  $osd_journal_size                = undef,
+  $osd_max_object_name_len         = undef,
+  $osd_max_object_namespace_len    = undef,
+  $osd_pool_default_pg_num         = undef,
+  $osd_pool_default_pgp_num        = undef,
+  $osd_pool_default_size           = undef,
+  $osd_pool_default_min_size       = undef,
+  $osd_pool_default_crush_rule     = undef,
+  $osd_crush_update_on_start       = undef,
+  $mon_osd_full_ratio              = undef,
+  $mon_osd_nearfull_ratio          = undef,
+  $mon_initial_members             = undef,
+  $mon_host                        = undef,
+  $ms_bind_ipv6                    = undef,
+  $require_signatures              = undef,
+  $cluster_require_signatures      = undef,
+  $service_require_signatures      = undef,
+  $sign_messages                   = undef,
+  $cluster_network                 = undef,
+  $public_network                  = undef,
+  $public_addr                     = undef,
+  $osd_max_backfills               = undef,
+  $osd_recovery_max_active         = undef,
+  $osd_recovery_op_priority        = undef,
+  $osd_recovery_max_single_start   = undef,
+  $osd_max_scrubs                  = undef,
+  $osd_op_threads                  = undef,
+  $rbd_default_features            = undef,
+  $bluestore_compression_mode      = undef,
+  $bluestore_compression_algorithm = undef,
   # DEPRECATED PARAMETERS
-  $set_osd_params                = false,
+  $set_osd_params                  = false,
 ) {
   include ::ceph::params
 
@@ -213,6 +215,8 @@ this module to assign values and will be removed in a future release.')
       'global/public_addr':                  value => $public_addr;
       'osd/osd_journal_size':                value => $osd_journal_size;
       'client/rbd_default_features':         value => $rbd_default_features;
+      'bluestore_compression_mode':          value => $bluestore_compression_mode;
+      'bluestore_compression_algorithm':     value => $bluestore_compression_algorithm;
     }
 
 
