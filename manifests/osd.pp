@@ -69,6 +69,12 @@ define ceph::osd (
     }
     $cluster_option = "--cluster ${cluster_name}"
 
+    if $filesystem {
+      $filesystem_option = "--fs-type ${filesystem}"
+    } else {
+      $filesystem_option = undef
+    }
+
     if $ensure == present {
 
       $ceph_check_udev = "ceph-osd-check-udev-${name}"
@@ -131,7 +137,7 @@ if ! test -b \$disk ; then
         chown -h ceph:ceph \$disk
     fi
 fi
-ceph-disk prepare ${cluster_option} ${fsid_option} $(readlink -f ${data}) $(readlink -f ${journal})
+ceph-disk prepare ${cluster_option} ${fsid_option} ${filesystem_option} $(readlink -f ${data}) $(readlink -f ${journal})
 udevadm settle
 ",
         unless    => "/bin/true # comment to satisfy puppet syntax requirements
