@@ -101,7 +101,7 @@ set -ex
 DISABLE_UDEV=$(ceph --version | awk 'match(\$3, /[0-9]+\\.[0-9]+/) {if (substr(\$3, RSTART, RLENGTH) <= 0.94) {print 1}}')
 test -f ${udev_rules_file} && test \$DISABLE_UDEV -eq 1
 ",
-        logoutput => true,
+        logoutput => false,
       }
 
       if $fsid {
@@ -119,7 +119,7 @@ test ${fsid} = $(ceph-disk list $(readlink -f ${data}) | egrep -o '[0-9a-f]{8}-(
 set -ex
 test -z $(ceph-disk list $(readlink -f ${data}) | egrep -o '[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}')
 ",
-          logoutput => true,
+          logoutput => false,
           timeout   => $exec_timeout,
         }
       }
@@ -146,7 +146,7 @@ disk=$(readlink -f ${data})
 ceph-disk list | egrep \" *(\${disk}1?|\${disk}p1?) .*ceph data, (prepared|active)\" ||
 { test -f \$disk/fsid && test -f \$disk/ceph_fsid && test -f \$disk/magic ;}
 ",
-        logoutput => true,
+        logoutput => false,
         timeout   => $exec_timeout,
         tag       => 'prepare',
       }
@@ -188,7 +188,7 @@ fi
 set -ex
 ls -ld /var/lib/ceph/osd/${cluster_name}-* | grep \" $(readlink -f ${data})\$\"
 ",
-        logoutput => true,
+        logoutput => false,
         tag       => 'activate',
       }
 
@@ -232,7 +232,7 @@ else
   true # if there is no id  we do nothing
 fi
 ",
-        logoutput => true,
+        logoutput => false,
         timeout   => $exec_timeout,
       } -> Ceph::Mon<| ensure == absent |>
     } else {

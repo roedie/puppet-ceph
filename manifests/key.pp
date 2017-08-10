@@ -147,7 +147,7 @@ rv=\$?
 rm \$NEW_KEYRING
 exit \$rv",
     require   => [ File[$keyring_path], ],
-    logoutput => true,
+    logoutput => false,
   }
 
   if $inject {
@@ -182,7 +182,7 @@ rv=$?
 rm \$OLD_KEYRING
 exit \$rv",
       require   => [ Class['ceph'], Exec["ceph-key-${name}"], ],
-      logoutput => true,
+      logoutput => false,
     }
 
   }

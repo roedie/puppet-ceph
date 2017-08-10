@@ -245,7 +245,7 @@ set -ex
 mon_data=\$(ceph-mon ${cluster_option} --id ${id} --show-config-value mon_data)
 test -d  \$mon_data
 ",
-        logoutput => true,
+        logoutput => false,
         timeout   => $exec_timeout,
       }->
       service { $mon_service:
@@ -287,7 +287,7 @@ which ceph-mon || exit 0 # if ceph-mon is not available we already uninstalled c
 mon_data=\$(ceph-mon ${cluster_option} --id ${id} --show-config-value mon_data)
 test ! -d \$mon_data
 ",
-        logoutput => true,
+        logoutput => false,
         timeout   => $exec_timeout,
       } ->
       ceph_config {
