@@ -25,7 +25,6 @@ class ceph::profile::mon {
 
   ceph::mon { $::hostname:
     authentication_type => $ceph::profile::params::authentication_type,
-    mgrkey              => $ceph::profile::params::mgr_key,
     key                 => $ceph::profile::params::mon_key,
     keyring             => $ceph::profile::params::mon_keyring,
     public_addr         => $ceph::profile::params::public_addr,
