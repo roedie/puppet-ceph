@@ -245,6 +245,7 @@ class ceph::profile::params (
   $rbd_cache = undef,
   $rbd_cache_writethrough_until_flush = undef,
   $rbd_concurrent_management_ops = undef,
+  $application = undef,
 ) {
   validate_hash($client_keys)
 

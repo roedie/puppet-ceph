@@ -46,12 +46,16 @@
 # [*exec_timeout*] The default exec resource timeout, in seconds
 #   Optional. Defaults to $::ceph::params::exec_timeout
 #
+# [*application*] Set the pool application.
+# Optional. Default is rbd.
+#
 define ceph::pool (
   $ensure = present,
   $pg_num = 64,
   $pgp_num = undef,
   $size = undef,
   $exec_timeout = $::ceph::params::exec_timeout,
+  $application = 'rbd',
 ) {
 
   include ::ceph::params
@@ -104,6 +108,19 @@ ceph osd pool set ${name} size ${size}",
         unless  => "/bin/true # comment to satisfy puppet syntax requirements
 set -ex
 test $(ceph osd pool get ${name} size | sed 's/.*:\s*//g') -eq ${size}",
+        require => Exec["create-${name}"],
+        timeout => $exec_timeout,
+      }
+    }
+
+    if $application {
+      exec { "set-${name}-application":
+        command => "/bin/true # comment to satisfy puppet syntax requirements
+set -ex
+ceph osd pool application enable ${name} ${application}",
+        unless  => "/bin/true # comment to satisfy puppet syntax requirements
+set -ex
+test $(ceph osd pool application get ${name} | grep ':' | sed 's/.*\"\(.*\)\"\:.*/\1/') = ${application}",
         require => Exec["create-${name}"],
         timeout => $exec_timeout,
       }
