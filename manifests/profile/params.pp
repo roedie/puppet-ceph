@@ -94,9 +94,6 @@
 # [*mds_key*] The mds secret key.
 #   Optional but required when using cephx.
 #
-# [*mgr_key*] The mgr secret key.
-#   Optional. 
-#
 # [*mon_key*] The mon secret key.
 #   Optional. Either mon_key or mon_keyring need to be set when using cephx.
 #
@@ -178,7 +175,7 @@
 #
 # [*rgw_keystone_admin_password*] The password for OpenStack admin user
 #   Required if is 'v3'.
-# 
+#
 # [*rbd_mirror_client_name*] Name of the cephx client key used for rbd mirroring
 #   Optional. Default is undef
 #
@@ -193,7 +190,7 @@
 #
 # [*rbd_default_features*] Set RBD features configuration.
 #   Optional. String. Defaults to undef.
-# 
+#
 
 class ceph::profile::params (
   $fsid = undef,
@@ -214,7 +211,6 @@ class ceph::profile::params (
   $public_network = undef,
   $public_addr = undef,
   $mds_key = undef,
-  $mgr_key = undef,
   $mon_key = undef,
   $mgr_key = undef,
   $mon_keyring = undef,
