@@ -35,10 +35,6 @@
 #   Optional. Absolute path to the keyring file, including the file name.
 #   Defaults to /etc/ceph/ceph.${name}.keyring.
 #
-# [*cap_mgr*] cephx capabilities for MGR access.
-#   Optional. e.g. 'allow *'
-#   Defaults to 'undef'.
-#
 # [*cap_mon*] cephx capabilities for MON access.
 #   Optional. e.g. 'allow *'
 #   Defaults to 'undef'.
@@ -82,7 +78,6 @@ define ceph::key (
   $secret,
   $cluster = undef,
   $keyring_path = "/etc/ceph/ceph.${name}.keyring",
-  $cap_mgr = undef,
   $cap_mon = undef,
   $cap_osd = undef,
   $cap_mds = undef,
