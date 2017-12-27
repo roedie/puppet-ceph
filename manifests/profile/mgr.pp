@@ -1,5 +1,5 @@
 #
-#  Copyright (C) 2016 Keith Schincke
+# Copyright (C) 2017, VEXXHOST, Inc.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,23 +13,18 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-# Author: Keith Schincke <keith.schincke@gmail.com>
+# Author: Mohammed Naser <mnaser@vexxhost.com>
 #
-# Configures a ceph radosgw using civetweb.
+# == Class: ceph::profile::mgr
 #
-# == Define: ceph::rgw::civetweb
-# [*rgw_frontends*] Arguments to the rgw frontend
-#   Optional. Default is 'civetweb port=7480'
+# Profile for a Ceph mgr
 #
-define ceph::rgw::civetweb (
-  $rgw_frontends = 'civetweb port=7480',
-) {
+class ceph::profile::mgr {
+  require ::ceph::profile::base
 
-  unless $name =~ /^radosgw\..+/ {
-    fail("Define name must be started with 'radosgw.'")
-  }
-
-  ceph_config {
-    "client.${name}/rgw_frontends": value => $rgw_frontends;
+  ceph::mgr { $::hostname:
+    authentication_type => $ceph::profile::params::authentication_type,
+    key                 => $ceph::profile::params::mgr_key,
+    inject_key          => true,
   }
 }

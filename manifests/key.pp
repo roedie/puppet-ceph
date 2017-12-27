@@ -51,6 +51,10 @@
 #   Optional. e.g. 'allow *'
 #   Defaults to 'undef'.
 #
+# [*cap_mgr*] cephx capabilities for MGR access.
+#   Optional. e.g. 'allow *'
+#   Defaults to 'undef'.
+#
 # [*user*] Owner of the *keyring_path* file.
 #   Optional. Defaults to 'root'.
 #
@@ -82,6 +86,7 @@ define ceph::key (
   $cap_mon = undef,
   $cap_osd = undef,
   $cap_mds = undef,
+  $cap_mgr = undef,
   $user = 'root',
   $group = 'root',
   $mode = '0600',
@@ -117,8 +122,13 @@ define ceph::key (
   } else {
     $mds_caps = ''
   }
+  if $cap_mgr {
+    $mgr_caps = "--cap mgr '${cap_mgr}' "
+  } else {
+    $mgr_caps = ''
+  }
 
-  $caps = "${mgr_caps}${mon_caps}${osd_caps}${mds_caps}"
+  $caps = "${mon_caps}${osd_caps}${mds_caps}${mgr_caps}"
 
   # this allows multiple defines for the same 'keyring file',
   # which is supported by ceph-authtool
@@ -176,10 +186,13 @@ ceph ${cluster_option} ${inject_id_option} ${inject_keyring_option} auth import 
       unless    => "/bin/true # comment to satisfy puppet syntax requirements
 set -x
 OLD_KEYRING=\$(mktemp)
+TMP_KEYRING=\$(mktemp)
+cat ${keyring_path} | sed -e 's/\\\\//g' > \$TMP_KEYRING
 ceph ${cluster_option} ${inject_id_option} ${inject_keyring_option} auth get ${name} -o \$OLD_KEYRING || true
-diff -N \$OLD_KEYRING ${keyring_path}
+diff -N \$OLD_KEYRING \$TMP_KEYRING
 rv=$?
 rm \$OLD_KEYRING
+rm \$TMP_KEYRING
 exit \$rv",
       require   => [ Class['ceph'], Exec["ceph-key-${name}"], ],
       logoutput => false,

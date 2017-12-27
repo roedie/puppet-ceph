@@ -100,6 +100,9 @@
 # [*mon_key*] The mon secret key.
 #   Optional. Either mon_key or mon_keyring need to be set when using cephx.
 #
+# [*mgr_key*] The mgr secret key.
+#   Optional. Either mgr_key or mgr_keyring need to be set when using cephx.
+#
 # [*mon_keyring*] The location of the keyring retrieved by default
 #   Optional. Either mon_key or mon_keyring need to be set when using cephx
 #
@@ -155,7 +158,7 @@
 #   For OSD nodes it is recommended that you raise pid_max above the
 #   default value because you may hit the system max during
 #   recovery. The recommended value is the absolute max for pid_max: 4194303
-#   http://docs.ceph.com/docs/jewel/rados/troubleshooting/troubleshooting-osd/
+#   http://docs.ceph.com/docs/luminous/rados/troubleshooting/troubleshooting-osd/
 #
 # [*rgw_keystone_version*] The api version for keystone.
 #   Possible values 'v2.0', 'v3'
@@ -213,6 +216,7 @@ class ceph::profile::params (
   $mds_key = undef,
   $mgr_key = undef,
   $mon_key = undef,
+  $mgr_key = undef,
   $mon_keyring = undef,
   $client_keys = {},
   $osds = undef,
