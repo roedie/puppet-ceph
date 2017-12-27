@@ -97,11 +97,6 @@ define ceph::key (
     $cluster_option = ''
   }
 
-  if $cap_mgr {
-    $mgr_caps = "--cap mgr '${cap_mgr}' "
-  } else {
-    $mgr_caps = ''
-  }
   if $cap_mon {
     $mon_caps = "--cap mon '${cap_mon}' "
   } else {
